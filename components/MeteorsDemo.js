@@ -29,7 +29,7 @@ export function MeteorsDemo() {
                     </h1>
 
                     <p className="font-normal text-base text-slate-500 mb-4 relative z-50">
-                    ₹5000.
+                        WE'RE CURRENTLY OUT OF STOCK :)
                     </p>
 
                     <button className="border px-4 py-1 rounded-lg  border-gray-500 text-gray-300">
