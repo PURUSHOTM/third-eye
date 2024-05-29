@@ -8,6 +8,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { useRouter } from 'next/router';
+import { getFirestore, doc, setDoc } from "firebase/firestore"; // Import Firestore
 import Link from "next/link";
 
 export function SignupFormDemo() {
@@ -31,7 +32,8 @@ export function SignupFormDemo() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const auth = getAuth(app);
-        const { email, password, confirmpassword } = formData;
+        const db = getFirestore(app); // Initialize Firestore
+        const { firstname, lastname, email, password, confirmpassword } = formData;
 
         if (password !== confirmpassword) {
             console.error("Passwords do not match");
@@ -39,7 +41,16 @@ export function SignupFormDemo() {
         }
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Store user information in Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+            });
+
             toast.success("Signed up successfully!");
             router.push("/");
         } catch (error) {

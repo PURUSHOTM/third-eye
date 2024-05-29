@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Nextly - Free Nextjs & TailwindCSS Landing Page Template</title>
+        <title>3rd Eye for blind people</title>
         <meta
           name="description"
           content="Nextly is a free landing page template built with next.js & Tailwind CSS"
@@ -28,7 +28,7 @@ const Home = () => {
       <Hero />
       <SectionTitle
         pretitle="Project Benefits"
-        >
+      >
         To develop an assistive technology device that enhances the mobility and independence of visually impaired individuals by providing real-time obstacle detection and navigation support.
       </SectionTitle>
       <Benefits data={benefitOne} />

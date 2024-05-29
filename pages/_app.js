@@ -3,12 +3,16 @@ import "../css/tailwind.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { AuthProvider } from '../context/AuthContext';
+
 
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
-      <Component {...pageProps} />
-      <ToastContainer />
+      <AuthProvider >
+        <Component {...pageProps} />
+        <ToastContainer />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

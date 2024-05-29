@@ -1,11 +1,16 @@
+// src/components/Navbar.js
+
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
-import Image from "next/image"
+import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
+import { useAuth } from '../context/AuthContext'; // Import the custom hook
 
 const Navbar = () => {
+  const { user, logout } = useAuth(); // Get user and logout function from the context
+
   const navigation = [
-    "Products",
+    "Product",
     "Pricing",
     "Members",
   ];
@@ -59,7 +64,7 @@ const Navbar = () => {
                 <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                   <>
                     {navigation.map((item, index) => (
-                      <Link key={index} href={item} className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
+                      <Link key={index} href="/" className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none">
                         {item}
                       </Link>
                     ))}
@@ -87,10 +92,21 @@ const Navbar = () => {
         </div>
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-          <Link href="/auth/sign-up" className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
-            Sign Up
-          </Link>
-
+          {!user ? (
+            <Link href="/auth/sign-up" className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5">
+              Sign Up
+            </Link>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <span className="text-lg font-medium text-gray-800 dark:text-gray-200">{user.email}</span>
+              <button
+                onClick={logout}
+                className="px-6 py-2 text-white bg-red-600 rounded-md"
+              >
+                Logout
+              </button>
+            </div>
+          )}
           <ThemeChanger />
         </div>
       </nav>
